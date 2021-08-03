@@ -1,10 +1,13 @@
 package spring.study.security.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -21,5 +24,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        사용하지 않으면 개발자가 정의한 /login 컨트롤러로 로그인 페이지 요청
         http.formLogin();
         http.httpBasic();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder () {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
