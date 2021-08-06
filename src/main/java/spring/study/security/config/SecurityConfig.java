@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/", "/info", "/login", "/account/**").permitAll()
+                .mvcMatchers("/", "/info", "/login", "/account/**", "signup").permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .expressionHandler(expressionHandler());
@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        사용하지 않으면 개발자가 정의한 /login 컨트롤러로 로그인 페이지 요청
         http.formLogin();
         http.httpBasic();
+        http.csrf();
     }
 
     @Bean
